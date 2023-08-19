@@ -28,7 +28,6 @@ module.exports = {
     },
 
     callback: async ({ instance, interaction, args }) => {
-        console.log(args)
         if (args.length > 0) {
             const comName = args[0]
             const command = instance.commandHandler.commands.get(`${comName}`)
