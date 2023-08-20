@@ -22,7 +22,7 @@ class PrefixHandler {
 
     get(guildId) {
         if (!guildId) {
-            return defaultPrefix
+            return this.defaultPrefix
         }
 
         return this._prefixes.get(guildId) || this.defaultPrefix
