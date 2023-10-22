@@ -10,7 +10,7 @@ module.exports = {
     guildOnly: true,
     testOnly: true,
 
-    roles: [PermissionFlagsBits.Administrator],
+    permissions: [PermissionFlagsBits.Administrator],
 
     options: [
         {
