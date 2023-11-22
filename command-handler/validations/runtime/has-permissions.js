@@ -4,7 +4,7 @@ const requiredPermissions = require('../../../models/required-permissions-schema
 const keys = Object.keys(PermissionFlagsBits)
 
 module.exports = async (command, usage) => {
-    const { permissions = [] } = command.commandObject
+    const { permissions = [], deferReply } = command.commandObject
     const { guild, member, message, interaction } = usage
 
     if (!member) {
@@ -34,10 +34,23 @@ module.exports = async (command, usage) => {
         if (missingPermissions.length) {
             const text = `You are missing the following permission(s): "${missingPermissions.join('", "')}"`
 
-            if (message) message.reply(text)
-            if (interaction) interaction.reply(text)
-
-            return false
+            if (deferReply) {
+                if (deferReply === 'ephemeral') {
+                    if (message) message.reply({ content: text, ephemeral: true })
+                    else if (interaction) interaction.editReply({ content: text, ephemeral: true })
+                    return false
+                } else {
+                    if (deferReply === true) {
+                        if (message) message.reply(text)
+                        else if (interaction) interaction.editReply(text)
+                        return false
+                    }
+                }
+            } else {
+                if (message) message.reply(text)
+                else if (interaction) interaction.reply(text)
+                return false
+            }
         }
     }
 
