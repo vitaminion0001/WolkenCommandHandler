@@ -34,19 +34,19 @@ module.exports = async (command, usage) => {
 
         if (deferReply) {
             if (deferReply === 'ephemeral') {
-                if (message) message.reply({ content: text, ephemeral: true })
-                else if (interaction) interaction.editReply({ content: text, ephemeral: true })
+                if (message) message.reply({ content: reply, ephemeral: true })
+                else if (interaction) interaction.editReply({ content: reply, ephemeral: true })
                 return false
             } else {
                 if (deferReply === true) {
-                    if (message) message.reply(text)
-                    else if (interaction) interaction.editReply(text)
+                    if (message) message.reply(reply)
+                    else if (interaction) interaction.editReply(reply)
                     return false
                 }
             }
         } else {
-            if (message) message.reply(text)
-            else if (interaction) interaction.reply(text)
+            if (message) message.reply(reply)
+            else if (interaction) interaction.reply(reply)
             return false
         }
     }
