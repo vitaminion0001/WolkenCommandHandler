@@ -31,11 +31,18 @@ module.exports = async (command, usage) => {
                 roles: []
             }
         }
+        const ephemeralReply = {
+            content: `You need one of these roles: ${document.roles.map((roleId => `<@&${roleId}>`))}`,
+            allowedMentions: {
+                roles: []
+            },
+            ephemeral: true
+        }
 
         if (deferReply) {
             if (deferReply === 'ephemeral') {
-                if (message) message.reply({ content: reply, ephemeral: true })
-                else if (interaction) interaction.editReply({ content: reply, ephemeral: true })
+                if (message) message.reply(ephemeralReply)
+                else if (interaction) interaction.editReply(ephemeralReply)
                 return false
             } else {
                 if (deferReply === true) {
